@@ -26,5 +26,14 @@ prev_permutation
 ```
 
 ## 원소를 수정하는 작업
+`파티션(Partition)` : 특정 조건을 만족하는 원소들은 앞으로 보내고, 나머지는 뒤로 보내는 작업 <br>
+퀵 소트에서 pivot 을 기준으로 pivot보다 작은 값은 앞에 배치, pivot보다 큰 값은 뒤에 배치하는 작업을 파티션이라고 한다.
+
+`iter_swap` : 두 반복자를 인수로 넘기면 두 반복자가 가리키는 원소의 값이 swap 된다.
+```cpp
+iter_swap(str.begin() + i, str.begin() + j); // str[i] <-> str[j]
+```
+
+`sort` : 정렬
 
 
