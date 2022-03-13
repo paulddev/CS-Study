@@ -104,12 +104,47 @@ Ready queue 에 있다가 CPU를 잡게 된다면?
 
 ![4](https://user-images.githubusercontent.com/31722512/158031565-411ddc48-7e97-4f0a-963c-6bec7271887e.png)
 
+# Thread
+스레드는 CPU를 수행하는 단위 (경량화 프로세스)
 
+스레드의 구성
+- Program Counter
+- register set
+- stack space
 
+스레드가 동료 스레드와 공유하는 부분(=Task)
+- code section
+- data section
+- OS resource
 
+전통적인 개념의 heavyweight process는 하나의 thread 를 가지고 있는 task로 볼 수 있다. <br>
 
+![5](https://user-images.githubusercontent.com/31722512/158055551-0283cb9d-2f9f-4152-8d21-579729e0d87e.png)
 
+프로세스 하나에 CPU 수행 단위만 여러개 두고 있는 것을 `스레드`라고 부른다. <br>
+스레드마다 독립적인 `스택 공간(PC, Register)`이 있다.
 
+- 다중 스레드로 구성된 task 구조에서는 하나의 서버 스레드가 blocked(waiting)상태인 동안에도 동일한 태스크 내의 다른 스레드가 실행되어 빠른 처리가 가능하다.
+- 동일한 일을 수행하는 다중 스레드가 협력하여 높은 처리율(Throughput)과 성능 향상을 얻을 수 있다.
+- 스레드를 사용하면 병렬성을 높일 수 있다.
 
+![6](https://user-images.githubusercontent.com/31722512/158055936-7e5ac089-b712-452d-815b-cbd798855f5e.png)
 
+![7](https://user-images.githubusercontent.com/31722512/158055973-4982d242-4949-412f-81c4-b3b7bdd76552.png)
 
+## Benefits of Threads
+`Responsiveness (응답성)`
+- 빠른 응답성을 보여준다.
+
+`Resource Sharing(자원 공유)`
+- Code
+- Data
+- Process 의 자원들
+
+`Economy(경제성)`
+- Creating & CPU Switching thread (rater than a process)
+- Solaris 의 경우 위 두 가지 오버헤드가 각각 30배, 5배
+- 프로세스 문맥 교환보다 스레드 문맥 교환이 더 싸다.
+
+`Utilization of MP Architectures
+- each thread may be running in `parallel` on a different processor
