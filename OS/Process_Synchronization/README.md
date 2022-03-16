@@ -1,4 +1,4 @@
-# Process Synchronization
+# Process Synchronization (프로세스 동기화), 다른말로 Concurrency Control (병행 제어)
 
 ## 데이터의 접근
 ![23](https://user-images.githubusercontent.com/31722512/158187323-9c2b6cf4-76a5-4351-93b1-3d9d9efb574c.png)
@@ -278,6 +278,10 @@ Buffer의 크기가 유한한 환경에서 생산자-소비자 문제다.
 ## Monitor
 프로그래머 입장에서 생각해보자..
 
+동시 수행중인 프로세스 사이에서 abstract data type의 안전한 공유를 보장하기 위한 high-level synchronization construct를 제공
+
+`공유 데이터` 접근 문제를 모니터가 자동으로 해결해줌으로써, 프로그래머의 부담을 줄여주는 방법이다.
+
 ![image](https://user-images.githubusercontent.com/31722512/158412601-e784b764-e732-4637-82de-95688df78515.png)
 - 한 번의 실수로 망할 수 있다. (사람은 실수할 수 있다..)
 
@@ -288,7 +292,14 @@ Buffer의 크기가 유한한 환경에서 생산자-소비자 문제다.
 - 세마포어와의 차이점 lock 을 걸 필요가 없다!
 
 ![image](https://user-images.githubusercontent.com/31722512/158414790-dc35a5a6-3dbe-4747-a032-9f26f368845e.png)
-- x라는 자원이 여분이 있으면 바로 접근, 아니면 기다리도록 하는 함수를 정의
+- condition variable : 어떤 프로세스를 잠들게 하고 줄세우기 위한 변수다.
+- 모니터 내에서는 한번에 하나의 프로세스만이 활동 가능
+- 프로그래머가 동기화 제약 조건을 명시적으로 코딩할 필요가 없다.
+- 프로세스가 모니터 안에서 기다릴 수 있도록 하기위해서 `condition variable` 을 사용한다.
+-  `wait`와 `signal` 연산에 의해서만 접근이 가능하다.
+-  `x.wait()`을 invoke 한 프로세스는 다른 프로세스가 `x.signal()`을 invoke하기 전까지 suspend(잠들게)된다.
+-  `x.signal()`은 정확하게 하나의 suspend된 프로세스를 resume한다.
+-  suspend된 프로세스가 없다면 아무 일도 일어나지 않게 된다.
 
 ## Bounded-Buffer Problem (Monitor)
 ![image](https://user-images.githubusercontent.com/31722512/158415155-05a26121-2a63-4ed7-a6b7-79b78dc4e914.png)
@@ -304,7 +315,5 @@ Buffer의 크기가 유한한 환경에서 생산자-소비자 문제다.
 - 있다면, 채워진 버퍼의 아이템을 지우고(사용하고)
 - empty.signal() 로 비워진 버퍼 + 1 (잠들어있는 프로세스가 있다면 깨워주기)
 
-다음 시간은 Process Synchronization 4 부터 이어서 공부
-
-
-
+## Dining Philosophers Example (Monitor)
+![image](https://user-images.githubusercontent.com/31722512/158621172-247a9c75-f903-4730-8203-c8b20454448d.png)
